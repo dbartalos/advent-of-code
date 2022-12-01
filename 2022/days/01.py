@@ -3,16 +3,21 @@
 import sys
 
 current = 0
-most = 0
-totals = []
+leaders = []
+leaders_length = 3
+smallest = 0
 
 with open(sys.argv[1], 'r') as input_data:
   for line in input_data:
     if line != '\n':
       current += int(line)
     else:
-      if current > most:
-        most = current
+      if current > smallest:
+        leaders.append(current)
+        smallest = min(leaders)
       current = 0
-    totals.append(current)
-  print(sum(sorted(totals, reverse=True)[:3]))
+    
+    if(len(leaders) > leaders_length):
+      leaders.remove(smallest)
+
+  print(sum(leaders))
